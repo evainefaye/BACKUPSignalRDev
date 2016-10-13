@@ -1,0 +1,412 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="SignalRModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="annoucements">
+          <Key>
+            <PropertyRef Name="announcementId" />
+          </Key>
+          <Property Name="announcementId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="enteredDate" Type="nvarchar" MaxLength="40" Nullable="false" />
+          <Property Name="enteredBy" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="announcementText" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="seenBy" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="chatLogs">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="chatId" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="time" Type="nvarchar" MaxLength="40" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="message" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="chatSessions">
+          <Key>
+            <PropertyRef Name="chatGUID" />
+          </Key>
+          <Property Name="chatGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="sashaSessionId" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="agentConnectionId" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="helperConnectionId" Type="nvarchar" MaxLength="50" />
+          <Property Name="agentId" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="helperId" Type="nvarchar" MaxLength="50" />
+          <Property Name="lastActivity" Type="nvarchar" MaxLength="40" Nullable="false" />
+          <Property Name="requestDate" Type="nvarchar" MaxLength="40" Nullable="false" />
+          <Property Name="completeDate" Type="nvarchar" MaxLength="40" />
+          <Property Name="flowName" Type="nvarchar(max)" />
+          <Property Name="stepName" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="locationLookup">
+          <Key>
+            <PropertyRef Name="locationCode" />
+          </Key>
+          <Property Name="locationCode" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="locationName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="lookupMonitorUsers">
+          <Key>
+            <PropertyRef Name="userId" />
+          </Key>
+          <Property Name="userId" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="onlineStatus" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="connectionId" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="lastChatTime" Type="nvarchar" MaxLength="40" Nullable="false" />
+          <Property Name="currentChats" Type="int" Nullable="false" />
+          <Property Name="maximumChats" Type="int" Nullable="false" />
+          <Property Name="broadcastAll" Type="nvarchar" MaxLength="1" />
+          <Property Name="broadcast" Type="nvarchar" MaxLength="1" />
+          <Property Name="pushChat" Type="nvarchar" MaxLength="1" />
+          <Property Name="saveDictionary" Type="nvarchar" MaxLength="1" />
+        </EntityType>
+        <EntityType Name="sashaSessions">
+          <Key>
+            <PropertyRef Name="connectionId" />
+          </Key>
+          <Property Name="connectionId" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="userId" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="sessionStartTime" Type="nvarchar" MaxLength="25" Nullable="false" />
+          <Property Name="smpSessionId" Type="nvarchar" MaxLength="40" Nullable="false" />
+          <Property Name="milestone" Type="nvarchar" MaxLength="50" />
+          <Property Name="instance" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="users">
+          <Key>
+            <PropertyRef Name="userId" />
+          </Key>
+          <Property Name="userId" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="userName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="locationCode" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_annoucements_users">
+          <End Role="users" Type="Self.users" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="annoucements" Type="Self.annoucements" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="annoucements">
+              <PropertyRef Name="enteredBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_lookupMonitorUsers_users">
+          <End Role="users" Type="Self.users" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="lookupMonitorUsers" Type="Self.lookupMonitorUsers" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="lookupMonitorUsers">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_sashaSessions_users">
+          <End Role="users" Type="Self.users" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="sashaSessions" Type="Self.sashaSessions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="sashaSessions">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SignalRModelStoreContainer">
+          <EntitySet Name="annoucements" EntityType="Self.annoucements" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="chatLogs" EntityType="Self.chatLogs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="chatSessions" EntityType="Self.chatSessions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="locationLookup" EntityType="Self.locationLookup" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="lookupMonitorUsers" EntityType="Self.lookupMonitorUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sashaSessions" EntityType="Self.sashaSessions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_annoucements_users" Association="Self.FK_annoucements_users">
+            <End Role="users" EntitySet="users" />
+            <End Role="annoucements" EntitySet="annoucements" />
+          </AssociationSet>
+          <AssociationSet Name="FK_lookupMonitorUsers_users" Association="Self.FK_lookupMonitorUsers_users">
+            <End Role="users" EntitySet="users" />
+            <End Role="lookupMonitorUsers" EntitySet="lookupMonitorUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sashaSessions_users" Association="Self.FK_sashaSessions_users">
+            <End Role="users" EntitySet="users" />
+            <End Role="sashaSessions" EntitySet="sashaSessions" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SignalRModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="annoucement">
+          <Key>
+            <PropertyRef Name="announcementId" />
+          </Key>
+          <Property Name="announcementId" Type="Guid" Nullable="false" />
+          <Property Name="enteredDate" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="enteredBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="announcementText" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="seenBy" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="user" Relationship="Self.FK_annoucements_users" FromRole="annoucements" ToRole="users" />
+        </EntityType>
+        <EntityType Name="chatLog">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Guid" Nullable="false" />
+          <Property Name="chatId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="time" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="message" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="chatSession">
+          <Key>
+            <PropertyRef Name="chatGUID" />
+          </Key>
+          <Property Name="chatGUID" Type="Guid" Nullable="false" />
+          <Property Name="sashaSessionId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="agentConnectionId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="helperConnectionId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="agentId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="helperId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="lastActivity" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="requestDate" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="completeDate" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="flowName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="stepName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="locationLookup">
+          <Key>
+            <PropertyRef Name="locationCode" />
+          </Key>
+          <Property Name="locationCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="locationName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="lookupMonitorUser">
+          <Key>
+            <PropertyRef Name="userId" />
+          </Key>
+          <Property Name="userId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="onlineStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="connectionId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="lastChatTime" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="currentChats" Type="Int32" Nullable="false" />
+          <Property Name="maximumChats" Type="Int32" Nullable="false" />
+          <Property Name="broadcastAll" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Name="broadcast" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Name="pushChat" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Name="saveDictionary" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="user" Relationship="Self.FK_lookupMonitorUsers_users" FromRole="lookupMonitorUsers" ToRole="users" />
+        </EntityType>
+        <EntityType Name="sashaSession">
+          <Key>
+            <PropertyRef Name="connectionId" />
+          </Key>
+          <Property Name="connectionId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="userId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="sessionStartTime" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="smpSessionId" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="milestone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="instance" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="user" Relationship="Self.FK_sashaSessions_users" FromRole="sashaSessions" ToRole="users" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="userId" />
+          </Key>
+          <Property Name="userId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="userName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="locationCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="annoucements" Relationship="Self.FK_annoucements_users" FromRole="users" ToRole="annoucements" />
+          <NavigationProperty Name="lookupMonitorUser" Relationship="Self.FK_lookupMonitorUsers_users" FromRole="users" ToRole="lookupMonitorUsers" />
+          <NavigationProperty Name="sashaSessions" Relationship="Self.FK_sashaSessions_users" FromRole="users" ToRole="sashaSessions" />
+        </EntityType>
+        <Association Name="FK_annoucements_users">
+          <End Role="users" Type="Self.user" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="annoucements" Type="Self.annoucement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="annoucements">
+              <PropertyRef Name="enteredBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_lookupMonitorUsers_users">
+          <End Role="users" Type="Self.user" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="lookupMonitorUsers" Type="Self.lookupMonitorUser" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="lookupMonitorUsers">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_sashaSessions_users">
+          <End Role="users" Type="Self.user" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="sashaSessions" Type="Self.sashaSession" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="sashaSessions">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SignalR" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="annoucements" EntityType="Self.annoucement" />
+          <EntitySet Name="chatLogs" EntityType="Self.chatLog" />
+          <EntitySet Name="chatSessions" EntityType="Self.chatSession" />
+          <EntitySet Name="locationLookups" EntityType="Self.locationLookup" />
+          <EntitySet Name="lookupMonitorUsers" EntityType="Self.lookupMonitorUser" />
+          <EntitySet Name="sashaSessions" EntityType="Self.sashaSession" />
+          <EntitySet Name="users" EntityType="Self.user" />
+          <AssociationSet Name="FK_annoucements_users" Association="Self.FK_annoucements_users">
+            <End Role="users" EntitySet="users" />
+            <End Role="annoucements" EntitySet="annoucements" />
+          </AssociationSet>
+          <AssociationSet Name="FK_lookupMonitorUsers_users" Association="Self.FK_lookupMonitorUsers_users">
+            <End Role="users" EntitySet="users" />
+            <End Role="lookupMonitorUsers" EntitySet="lookupMonitorUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sashaSessions_users" Association="Self.FK_sashaSessions_users">
+            <End Role="users" EntitySet="users" />
+            <End Role="sashaSessions" EntitySet="sashaSessions" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SignalRModelStoreContainer" CdmEntityContainer="SignalR">
+          <EntitySetMapping Name="annoucements">
+            <EntityTypeMapping TypeName="SignalRModel.annoucement">
+              <MappingFragment StoreEntitySet="annoucements">
+                <ScalarProperty Name="announcementId" ColumnName="announcementId" />
+                <ScalarProperty Name="enteredDate" ColumnName="enteredDate" />
+                <ScalarProperty Name="enteredBy" ColumnName="enteredBy" />
+                <ScalarProperty Name="announcementText" ColumnName="announcementText" />
+                <ScalarProperty Name="seenBy" ColumnName="seenBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="chatLogs">
+            <EntityTypeMapping TypeName="SignalRModel.chatLog">
+              <MappingFragment StoreEntitySet="chatLogs">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="chatId" ColumnName="chatId" />
+                <ScalarProperty Name="time" ColumnName="time" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="message" ColumnName="message" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="chatSessions">
+            <EntityTypeMapping TypeName="SignalRModel.chatSession">
+              <MappingFragment StoreEntitySet="chatSessions">
+                <ScalarProperty Name="chatGUID" ColumnName="chatGUID" />
+                <ScalarProperty Name="sashaSessionId" ColumnName="sashaSessionId" />
+                <ScalarProperty Name="agentConnectionId" ColumnName="agentConnectionId" />
+                <ScalarProperty Name="helperConnectionId" ColumnName="helperConnectionId" />
+                <ScalarProperty Name="agentId" ColumnName="agentId" />
+                <ScalarProperty Name="helperId" ColumnName="helperId" />
+                <ScalarProperty Name="lastActivity" ColumnName="lastActivity" />
+                <ScalarProperty Name="requestDate" ColumnName="requestDate" />
+                <ScalarProperty Name="completeDate" ColumnName="completeDate" />
+                <ScalarProperty Name="flowName" ColumnName="flowName" />
+                <ScalarProperty Name="stepName" ColumnName="stepName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="locationLookups">
+            <EntityTypeMapping TypeName="SignalRModel.locationLookup">
+              <MappingFragment StoreEntitySet="locationLookup">
+                <ScalarProperty Name="locationCode" ColumnName="locationCode" />
+                <ScalarProperty Name="locationName" ColumnName="locationName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="lookupMonitorUsers">
+            <EntityTypeMapping TypeName="SignalRModel.lookupMonitorUser">
+              <MappingFragment StoreEntitySet="lookupMonitorUsers">
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="onlineStatus" ColumnName="onlineStatus" />
+                <ScalarProperty Name="connectionId" ColumnName="connectionId" />
+                <ScalarProperty Name="lastChatTime" ColumnName="lastChatTime" />
+                <ScalarProperty Name="currentChats" ColumnName="currentChats" />
+                <ScalarProperty Name="maximumChats" ColumnName="maximumChats" />
+                <ScalarProperty Name="broadcastAll" ColumnName="broadcastAll" />
+                <ScalarProperty Name="broadcast" ColumnName="broadcast" />
+                <ScalarProperty Name="pushChat" ColumnName="pushChat" />
+                <ScalarProperty Name="saveDictionary" ColumnName="saveDictionary" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sashaSessions">
+            <EntityTypeMapping TypeName="SignalRModel.sashaSession">
+              <MappingFragment StoreEntitySet="sashaSessions">
+                <ScalarProperty Name="connectionId" ColumnName="connectionId" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="sessionStartTime" ColumnName="sessionStartTime" />
+                <ScalarProperty Name="smpSessionId" ColumnName="smpSessionId" />
+                <ScalarProperty Name="milestone" ColumnName="milestone" />
+                <ScalarProperty Name="instance" ColumnName="instance" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="users">
+            <EntityTypeMapping TypeName="SignalRModel.user">
+              <MappingFragment StoreEntitySet="users">
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="userName" ColumnName="userName" />
+                <ScalarProperty Name="locationCode" ColumnName="locationCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

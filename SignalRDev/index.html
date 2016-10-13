@@ -1,0 +1,107 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+    <title>SASHA ASSISTANCE AND MONITORING SYSTEM</title>
+    <link rel="stylesheet" type="text/css" href="/css/dictionary.css" />
+    <link rel="stylesheet" type="text/css" href="/css/treeview.css" />
+    <link rel="stylesheet" type="text/css" href="/css/stylesheet.css" />
+    <link rel="stylesheet" type="text/css" href="/css/jqx.base.css" />
+    <link rel="stylesheet" type="text/css" href="/css/jqx.darkblue.css" />
+
+    <!--Script references -->
+    <script src="/js/jquery-2.2.4.min.js"></script>
+    <script src="/js/jquery.signalR-2.2.1.min.js"></script>
+    <script src="/js/jquery.treeview.js"></script>
+    <script src="/js/jqx-all.js"></script>
+    <script src="/js/jquery.layout.js"></script>
+    <script src="/js/globalization/globalize.js"></script>
+    <script src="/signalr/hubs"></script>
+    <script src="/js/monitor.js"></script>
+    <!--End Script references -->
+    <script>
+        $(document).ready(function () {
+            var myLayout = $('body').layout({
+                // enable showOverflow on west-pane so CSS popups will overlap north pane
+                west__showOverflowOnHover: true,
+                //      reference only - these options are NOT required because 'true' is the default
+                closable: false,    // pane can open & close
+                resizable: false,    // when open, pane can be resized
+                slidable: false,    // when closed, pane can 'slide' open over other panes - closes on mouse-out
+                // some resizing/toggling settings
+                north__slidable: false,   // OVERRIDE the pane-default of 'slidable=true'
+                north__resizable: false,   // OVERRIDE the pane-default of 'resizable=true'
+                north__togglerLength_closed: '100%',   // toggle-button is full-width of resizer-bar
+                north__spacing_open: 0, // no resizer-bar when open (zero height)
+                north__spacing_closed: 20, // big resizer-bar when open (zero height)
+                south__minSize: .25,
+                south__resizable: false,    // OVERRIDE the pane-default of 'resizable=true'
+                south__togglerTip_closed: "Run JUEL expressions against the live dictionary",
+                south__sliderTip:  "Run JUEL expressions against the live dictionary",
+                south__initClosed:  false,
+                south__spacing_closed: 20, // big resizer-bar when open (zero height)
+                center__size: .5,
+                north__size: .5,
+                north__minSize: .25,
+                north__maxSize: .25
+            });
+            $(".ui-layout-resizer-south").append("<span class=\"resizercontent\">Expression Console</span>");
+            $(".ui-layout-resizer-south").addClass("ui-draggable-disabled ui-draggable ui-state-disabled"); //Fix rendering bug when init closed is true
+        });
+    </script>
+</head>
+<body>
+    <div class="ui-layout-north sashaConnections">
+        <div>Connection Content</div>
+        <div>Connection Content</div>
+
+        <div>Connection Content</div>
+        <div>Connection Content</div>
+        <div>Connection Content</div>
+        <div>Connection Content</div>
+        <div>Connection Content</div>
+        <div>Connection Content</div>
+        <div>Connection Content</div>
+        <div>Connection Content</div>
+        <div>Connection Content</div>
+        <div>Connection Content</div>
+
+    </div>
+    <div class="ui-layout-center">    
+        <div class="ui-layout-north">
+            <div style="float:right">
+                <button id="dictionary-button" onclick="refreshDictionary();"><img src="/css/images/arrow_refresh.png" alt="Refresh Dictionary" /></button>
+            </div>
+            <div id="top-info">
+                <table cellpadding="0" cellspacing="5">
+                    <tr>
+                        <td id="capt_dict">
+                            <input type="button" id="dictionary-capture" value="Capture Dictionary" />
+                        </td>
+                        <td>
+                            <input type="text" size="30" id="dict_capture_name" placeholder="ENTER NAME TO SAVE DICTIONARY" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label>Selected&nbsp;Expression: </label>
+                        </td>
+                        <td>
+                            <input type="text" readonly size="70" id="expression" />
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="ui-layout-center">
+            <h2>DICTIONARY TREE</h2>
+            <div class="dictionary-area treeview-black" style="clear:both"></div>
+        </div>
+        <div class="ui-layout-south">
+            <h2>EXPRESSION CONSOLE</h2>
+            <input type="text" size="70" id="expressionConsole" placeholder="ENTER EXPRESSION TO EVALUATE" />
+            <input type="submit" id="expreval" value="Evaluate Expression" onclick="submitExpression(); return false;" />
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,596 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.2\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.2\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{3B3367AB-745E-4F22-A5C8-18F119FE8132}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SignalRDev</RootNamespace>
+    <AssemblyName>SignalRDev</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TypeScriptToolsVersion>1.7</TypeScriptToolsVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Prod|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.Core, Version=2.2.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.Core.2.2.1\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.SystemWeb, Version=2.2.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.SystemWeb.2.2.1\lib\net45\Microsoft.AspNet.SignalR.SystemWeb.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.2\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Owin, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.3.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Cors, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Cors.3.0.1\lib\net45\Microsoft.Owin.Cors.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.3.0.1\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.3.0.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web.Cors, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Cors.5.2.3\lib\net45\System.Web.Cors.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="css\dictionary.css" />
+    <Content Include="css\images\ajax-loader.gif" />
+    <Content Include="css\images\array.png" />
+    <Content Include="css\images\arrow_refresh.png" />
+    <Content Include="css\images\backgroundTop.png" />
+    <Content Include="css\images\backImage.png" />
+    <Content Include="css\images\bg_black.png" />
+    <Content Include="css\images\bg_blackhover.png" />
+    <Content Include="css\images\bg_blackhover_horizontal.png" />
+    <Content Include="css\images\bg_blackpressed.png" />
+    <Content Include="css\images\bg_blackpressed_horizontal.png" />
+    <Content Include="css\images\bg_black_horizontal.png" />
+    <Content Include="css\images\bg_blueenergy.png" />
+    <Content Include="css\images\bg_darkblue.png" />
+    <Content Include="css\images\bg_darkbluehover.png" />
+    <Content Include="css\images\bg_darkbluepressed.png" />
+    <Content Include="css\images\blackbackground.png" />
+    <Content Include="css\images\black_gradient.png" />
+    <Content Include="css\images\check_black.png" />
+    <Content Include="css\images\check_blue.png" />
+    <Content Include="css\images\check_blue_indeterminate.png" />
+    <Content Include="css\images\check_disabled.png" />
+    <Content Include="css\images\check_indeterminate_black.png" />
+    <Content Include="css\images\check_indeterminate_disabled.png" />
+    <Content Include="css\images\check_indeterminate_white.png" />
+    <Content Include="css\images\check_lightblue.png" />
+    <Content Include="css\images\check_lightblue_indeterminate.png" />
+    <Content Include="css\images\check_white.png" />
+    <Content Include="css\images\close.png" />
+    <Content Include="css\images\close_black.png" />
+    <Content Include="css\images\close_blue.png" />
+    <Content Include="css\images\close_white.png" />
+    <Content Include="css\images\colorpicker\bar-hue.png" />
+    <Content Include="css\images\colorpicker\bar-saturation.png" />
+    <Content Include="css\images\colorpicker\map-hue.png" />
+    <Content Include="css\images\colorpicker\map-saturation-overlay.png" />
+    <Content Include="css\images\colorpicker\map-saturation.png" />
+    <Content Include="css\images\colorpicker\ReadMe.txt" />
+    <Content Include="css\images\common.png" />
+    <Content Include="css\images\crosshair-white.png" />
+    <Content Include="css\images\crosshair.png" />
+    <Content Include="css\images\darkness\ReadMe.txt" />
+    <Content Include="css\images\darkness\ui-bg_flat_30_cccccc_40x100.png" />
+    <Content Include="css\images\darkness\ui-bg_flat_50_5c5c5c_40x100.png" />
+    <Content Include="css\images\darkness\ui-bg_glass_20_555555_1x400.png" />
+    <Content Include="css\images\darkness\ui-bg_glass_40_0078a3_1x400.png" />
+    <Content Include="css\images\darkness\ui-bg_glass_40_ffc73d_1x400.png" />
+    <Content Include="css\images\darkness\ui-bg_gloss-wave_25_333333_500x100.png" />
+    <Content Include="css\images\darkness\ui-bg_highlight-soft_80_eeeeee_1x100.png" />
+    <Content Include="css\images\darkness\ui-bg_inset-soft_25_000000_1x100.png" />
+    <Content Include="css\images\darkness\ui-bg_inset-soft_30_f58400_1x100.png" />
+    <Content Include="css\images\darkness\ui-icons_222222_256x240.png" />
+    <Content Include="css\images\darkness\ui-icons_4b8e0b_256x240.png" />
+    <Content Include="css\images\darkness\ui-icons_a83300_256x240.png" />
+    <Content Include="css\images\darkness\ui-icons_cccccc_256x240.png" />
+    <Content Include="css\images\darkness\ui-icons_ffffff_256x240.png" />
+    <Content Include="css\images\darkred_gradient.png" />
+    <Content Include="css\images\date.png" />
+    <Content Include="css\images\drag.png" />
+    <Content Include="css\images\dragcancel.png" />
+    <Content Include="css\images\error.png" />
+    <Content Include="css\images\file.gif" />
+    <Content Include="css\images\filter.png" />
+    <Content Include="css\images\folder-closed.gif" />
+    <Content Include="css\images\folder.gif" />
+    <Content Include="css\images\html_editor.png" />
+    <Content Include="css\images\html_editor_white.png" />
+    <Content Include="css\images\icon-calendar-white.png" />
+    <Content Include="css\images\icon-calendar.png" />
+    <Content Include="css\images\icon-cancel-white.png" />
+    <Content Include="css\images\icon-cancel.png" />
+    <Content Include="css\images\icon-delete-white.png" />
+    <Content Include="css\images\icon-delete.png" />
+    <Content Include="css\images\icon-down-blue.png" />
+    <Content Include="css\images\icon-down-transparent.png" />
+    <Content Include="css\images\icon-down-white.png" />
+    <Content Include="css\images\icon-down.png" />
+    <Content Include="css\images\icon-edit-white.png" />
+    <Content Include="css\images\icon-edit.png" />
+    <Content Include="css\images\icon-first-blue.png" />
+    <Content Include="css\images\icon-first-transparent.png" />
+    <Content Include="css\images\icon-first-white.png" />
+    <Content Include="css\images\icon-first.png" />
+    <Content Include="css\images\icon-last-blue.png" />
+    <Content Include="css\images\icon-last-transparent.png" />
+    <Content Include="css\images\icon-last-white.png" />
+    <Content Include="css\images\icon-last.png" />
+    <Content Include="css\images\icon-left-blue.png" />
+    <Content Include="css\images\icon-left-transparent.png" />
+    <Content Include="css\images\icon-left-white.png" />
+    <Content Include="css\images\icon-left.png" />
+    <Content Include="css\images\icon-menu-minimized-white.png" />
+    <Content Include="css\images\icon-menu-minimized.png" />
+    <Content Include="css\images\icon-plus-white.png" />
+    <Content Include="css\images\icon-plus.png" />
+    <Content Include="css\images\icon-recurrence-exception-white.png" />
+    <Content Include="css\images\icon-recurrence-exception.png" />
+    <Content Include="css\images\icon-recurrence-white.png" />
+    <Content Include="css\images\icon-recurrence.png" />
+    <Content Include="css\images\icon-right-blue.png" />
+    <Content Include="css\images\icon-right-transparent.png" />
+    <Content Include="css\images\icon-right-white.png" />
+    <Content Include="css\images\icon-right.png" />
+    <Content Include="css\images\icon-save-white.png" />
+    <Content Include="css\images\icon-save.png" />
+    <Content Include="css\images\icon-showpassword-white.png" />
+    <Content Include="css\images\icon-showpassword.png" />
+    <Content Include="css\images\icon-time-white.png" />
+    <Content Include="css\images\icon-time.png" />
+    <Content Include="css\images\icon-up-blue.png" />
+    <Content Include="css\images\icon-up-transparent.png" />
+    <Content Include="css\images\icon-up-white.png" />
+    <Content Include="css\images\icon-up.png" />
+    <Content Include="css\images\info.png" />
+    <Content Include="css\images\le-frog\ReadMe.txt" />
+    <Content Include="css\images\le-frog\ui-bg_diagonals-small_0_aaaaaa_40x40.png" />
+    <Content Include="css\images\le-frog\ui-bg_diagonals-thick_15_444444_40x40.png" />
+    <Content Include="css\images\le-frog\ui-bg_diagonals-thick_95_ffdc2e_40x40.png" />
+    <Content Include="css\images\le-frog\ui-bg_glass_55_fbf5d0_1x400.png" />
+    <Content Include="css\images\le-frog\ui-bg_highlight-hard_30_285c00_1x100.png" />
+    <Content Include="css\images\le-frog\ui-bg_highlight-soft_33_3a8104_1x100.png" />
+    <Content Include="css\images\le-frog\ui-bg_highlight-soft_50_4eb305_1x100.png" />
+    <Content Include="css\images\le-frog\ui-bg_highlight-soft_60_4ca20b_1x100.png" />
+    <Content Include="css\images\le-frog\ui-bg_inset-soft_10_285c00_1x100.png" />
+    <Content Include="css\images\le-frog\ui-icons_4eb305_256x240.png" />
+    <Content Include="css\images\le-frog\ui-icons_72b42d_256x240.png" />
+    <Content Include="css\images\le-frog\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="css\images\le-frog\ui-icons_ffffff_256x240.png" />
+    <Content Include="css\images\lightness\icon-first.png" />
+    <Content Include="css\images\lightness\icon-last.png" />
+    <Content Include="css\images\lightness\ReadMe.txt" />
+    <Content Include="css\images\lightness\ui-bg_diagonals-thick_18_b81900_40x40.png" />
+    <Content Include="css\images\lightness\ui-bg_diagonals-thick_20_666666_40x40.png" />
+    <Content Include="css\images\lightness\ui-bg_flat_10_000000_40x100.png" />
+    <Content Include="css\images\lightness\ui-bg_glass_100_f6f6f6_1x400.png" />
+    <Content Include="css\images\lightness\ui-bg_glass_100_fdf5ce_1x400.png" />
+    <Content Include="css\images\lightness\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="css\images\lightness\ui-bg_gloss-wave_35_f6a828_500x100.png" />
+    <Content Include="css\images\lightness\ui-bg_highlight-soft_100_eeeeee_1x100.png" />
+    <Content Include="css\images\lightness\ui-bg_highlight-soft_75_ffe45c_1x100.png" />
+    <Content Include="css\images\lightness\ui-icons_222222_256x240.png" />
+    <Content Include="css\images\lightness\ui-icons_228ef1_256x240.png" />
+    <Content Include="css\images\lightness\ui-icons_ef8c08_256x240.png" />
+    <Content Include="css\images\lightness\ui-icons_ffd27a_256x240.png" />
+    <Content Include="css\images\lightness\ui-icons_ffffff_256x240.png" />
+    <Content Include="css\images\loader-small.gif" />
+    <Content Include="css\images\loader.gif" />
+    <Content Include="css\images\mail.png" />
+    <Content Include="css\images\map.png" />
+    <Content Include="css\images\menubutton.png" />
+    <Content Include="css\images\metro-icon-down-white.png" />
+    <Content Include="css\images\metro-icon-down.png" />
+    <Content Include="css\images\metro-icon-first-white.png" />
+    <Content Include="css\images\metro-icon-first.png" />
+    <Content Include="css\images\metro-icon-last-white.png" />
+    <Content Include="css\images\metro-icon-last.png" />
+    <Content Include="css\images\metro-icon-left-white.png" />
+    <Content Include="css\images\metro-icon-left.png" />
+    <Content Include="css\images\metro-icon-right - Copy.png" />
+    <Content Include="css\images\metro-icon-right-white.png" />
+    <Content Include="css\images\metro-icon-right.png" />
+    <Content Include="css\images\metro-icon-up-white.png" />
+    <Content Include="css\images\metro-icon-up.png" />
+    <Content Include="css\images\multi-arrow.gif" />
+    <Content Include="css\images\number.png" />
+    <Content Include="css\images\office-icon-down.png" />
+    <Content Include="css\images\office-icon-first.png" />
+    <Content Include="css\images\office-icon-last.png" />
+    <Content Include="css\images\office-icon-left.png" />
+    <Content Include="css\images\office-icon-right.png" />
+    <Content Include="css\images\office-icon-up.png" />
+    <Content Include="css\images\overcast\ReadMe.txt" />
+    <Content Include="css\images\overcast\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="css\images\overcast\ui-bg_flat_0_eeeeee_40x100.png" />
+    <Content Include="css\images\overcast\ui-bg_flat_55_c0402a_40x100.png" />
+    <Content Include="css\images\overcast\ui-bg_flat_55_eeeeee_40x100.png" />
+    <Content Include="css\images\overcast\ui-bg_glass_100_f8f8f8_1x400.png" />
+    <Content Include="css\images\overcast\ui-bg_glass_35_dddddd_1x400.png" />
+    <Content Include="css\images\overcast\ui-bg_glass_60_eeeeee_1x400.png" />
+    <Content Include="css\images\overcast\ui-bg_inset-hard_75_999999_1x100.png" />
+    <Content Include="css\images\overcast\ui-bg_inset-soft_50_c9c9c9_1x100.png" />
+    <Content Include="css\images\overcast\ui-icons_3383bb_256x240.png" />
+    <Content Include="css\images\overcast\ui-icons_454545_256x240.png" />
+    <Content Include="css\images\overcast\ui-icons_70b2e1_256x240.png" />
+    <Content Include="css\images\overcast\ui-icons_999999_256x240.png" />
+    <Content Include="css\images\overcast\ui-icons_fbc856_256x240.png" />
+    <Content Include="css\images\package.png" />
+    <Content Include="css\images\pin-black.png" />
+    <Content Include="css\images\pin-blue.png" />
+    <Content Include="css\images\pin-lightblue.png" />
+    <Content Include="css\images\pin-white.png" />
+    <Content Include="css\images\pin-yellow.png" />
+    <Content Include="css\images\pin.png" />
+    <Content Include="css\images\pinned-black.png" />
+    <Content Include="css\images\pinned-blue.png" />
+    <Content Include="css\images\pinned-lightblue.png" />
+    <Content Include="css\images\pinned-white.png" />
+    <Content Include="css\images\pinned-yellow.png" />
+    <Content Include="css\images\pinned.png" />
+    <Content Include="css\images\plus.png" />
+    <Content Include="css\images\plus_white.png" />
+    <Content Include="css\images\pointer.png" />
+    <Content Include="css\images\rangebar_classic.png" />
+    <Content Include="css\images\rangebar_darkblue.png" />
+    <Content Include="css\images\rangebar_shinyblack.png" />
+    <Content Include="css\images\rangebar_summer.png" />
+    <Content Include="css\images\redmond\icon-first.png" />
+    <Content Include="css\images\redmond\icon-last.png" />
+    <Content Include="css\images\redmond\ReadMe.txt" />
+    <Content Include="css\images\redmond\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="css\images\redmond\ui-bg_flat_55_fbec88_40x100.png" />
+    <Content Include="css\images\redmond\ui-bg_glass_75_d0e5f5_1x400.png" />
+    <Content Include="css\images\redmond\ui-bg_glass_85_dfeffc_1x400.png" />
+    <Content Include="css\images\redmond\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="css\images\redmond\ui-bg_gloss-wave_55_5c9ccc_500x100.png" />
+    <Content Include="css\images\redmond\ui-bg_inset-hard_100_f5f8f9_1x100.png" />
+    <Content Include="css\images\redmond\ui-bg_inset-hard_100_fcfdfd_1x100.png" />
+    <Content Include="css\images\redmond\ui-icons_217bc0_256x240.png" />
+    <Content Include="css\images\redmond\ui-icons_2e83ff_256x240.png" />
+    <Content Include="css\images\redmond\ui-icons_469bdd_256x240.png" />
+    <Content Include="css\images\redmond\ui-icons_6da8d5_256x240.png" />
+    <Content Include="css\images\redmond\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="css\images\redmond\ui-icons_d8e7f3_256x240.png" />
+    <Content Include="css\images\redmond\ui-icons_f9bd01_256x240.png" />
+    <Content Include="css\images\red_arrow_down.png" />
+    <Content Include="css\images\red_arrow_up.png" />
+    <Content Include="css\images\red_gradient.png" />
+    <Content Include="css\images\roundbg_check_black.png" />
+    <Content Include="css\images\roundbg_check_disabled.png" />
+    <Content Include="css\images\roundbg_check_indeterminate.png" />
+    <Content Include="css\images\roundbg_check_white.png" />
+    <Content Include="css\images\roundbg_classic_hover.png" />
+    <Content Include="css\images\roundbg_classic_normal.png" />
+    <Content Include="css\images\roundbg_disabled.png" />
+    <Content Include="css\images\search.png" />
+    <Content Include="css\images\search_white.png" />
+    <Content Include="css\images\smoothness\ReadMe.txt" />
+    <Content Include="css\images\smoothness\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="css\images\smoothness\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="css\images\smoothness\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="css\images\smoothness\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="css\images\smoothness\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="css\images\smoothness\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="css\images\smoothness\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="css\images\smoothness\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="css\images\smoothness\ui-icons_222222_256x240.png" />
+    <Content Include="css\images\smoothness\ui-icons_2e83ff_256x240.png" />
+    <Content Include="css\images\smoothness\ui-icons_454545_256x240.png" />
+    <Content Include="css\images\smoothness\ui-icons_888888_256x240.png" />
+    <Content Include="css\images\smoothness\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="css\images\sortasc.png" />
+    <Content Include="css\images\sortascbutton.png" />
+    <Content Include="css\images\sortdesc.png" />
+    <Content Include="css\images\sortdescbutton.png" />
+    <Content Include="css\images\sortremove.png" />
+    <Content Include="css\images\star.png" />
+    <Content Include="css\images\start\ReadMe.txt" />
+    <Content Include="css\images\start\ui-bg_flat_55_999999_40x100.png" />
+    <Content Include="css\images\start\ui-bg_flat_75_aaaaaa_40x100.png" />
+    <Content Include="css\images\start\ui-bg_glass_45_0078ae_1x400.png" />
+    <Content Include="css\images\start\ui-bg_glass_55_f8da4e_1x400.png" />
+    <Content Include="css\images\start\ui-bg_glass_75_79c9ec_1x400.png" />
+    <Content Include="css\images\start\ui-bg_gloss-wave_45_e14f1c_500x100.png" />
+    <Content Include="css\images\start\ui-bg_gloss-wave_50_6eac2c_500x100.png" />
+    <Content Include="css\images\start\ui-bg_gloss-wave_75_2191c0_500x100.png" />
+    <Content Include="css\images\start\ui-bg_inset-hard_100_fcfdfd_1x100.png" />
+    <Content Include="css\images\start\ui-icons_0078ae_256x240.png" />
+    <Content Include="css\images\start\ui-icons_056b93_256x240.png" />
+    <Content Include="css\images\start\ui-icons_d8e7f3_256x240.png" />
+    <Content Include="css\images\start\ui-icons_e0fdff_256x240.png" />
+    <Content Include="css\images\start\ui-icons_f5e175_256x240.png" />
+    <Content Include="css\images\start\ui-icons_f7a50d_256x240.png" />
+    <Content Include="css\images\start\ui-icons_fcd113_256x240.png" />
+    <Content Include="css\images\star_disabled.png" />
+    <Content Include="css\images\star_hover.png" />
+    <Content Include="css\images\string.png" />
+    <Content Include="css\images\stripes.png" />
+    <Content Include="css\images\success.png" />
+    <Content Include="css\images\sunny\ReadMe.txt" />
+    <Content Include="css\images\sunny\ui-bg_diagonals-medium_20_d34d17_40x40.png" />
+    <Content Include="css\images\sunny\ui-bg_flat_30_cccccc_40x100.png" />
+    <Content Include="css\images\sunny\ui-bg_flat_50_5c5c5c_40x100.png" />
+    <Content Include="css\images\sunny\ui-bg_gloss-wave_45_817865_500x100.png" />
+    <Content Include="css\images\sunny\ui-bg_gloss-wave_60_fece2f_500x100.png" />
+    <Content Include="css\images\sunny\ui-bg_gloss-wave_70_ffdd57_500x100.png" />
+    <Content Include="css\images\sunny\ui-bg_gloss-wave_90_fff9e5_500x100.png" />
+    <Content Include="css\images\sunny\ui-bg_highlight-soft_100_feeebd_1x100.png" />
+    <Content Include="css\images\sunny\ui-bg_inset-soft_30_ffffff_1x100.png" />
+    <Content Include="css\images\sunny\ui-icons_3d3d3d_256x240.png" />
+    <Content Include="css\images\sunny\ui-icons_bd7b00_256x240.png" />
+    <Content Include="css\images\sunny\ui-icons_d19405_256x240.png" />
+    <Content Include="css\images\sunny\ui-icons_eb990f_256x240.png" />
+    <Content Include="css\images\sunny\ui-icons_ed9f26_256x240.png" />
+    <Content Include="css\images\sunny\ui-icons_fadc7a_256x240.png" />
+    <Content Include="css\images\sunny\ui-icons_ffe180_256x240.png" />
+    <Content Include="css\images\tick.png" />
+    <Content Include="css\images\time.png" />
+    <Content Include="css\images\track_classic.png" />
+    <Content Include="css\images\track_darkblue.png" />
+    <Content Include="css\images\track_shinyblack.png" />
+    <Content Include="css\images\track_summer.png" />
+    <Content Include="css\images\treeview-black-line.gif" />
+    <Content Include="css\images\treeview-black.gif" />
+    <Content Include="css\images\treeview-default-line.gif" />
+    <Content Include="css\images\treeview-default.gif" />
+    <Content Include="css\images\treeview-famfamfam-line.gif" />
+    <Content Include="css\images\treeview-famfamfam.gif" />
+    <Content Include="css\images\treeview-gray-line.gif" />
+    <Content Include="css\images\treeview-gray.gif" />
+    <Content Include="css\images\treeview-red-line.gif" />
+    <Content Include="css\images\treeview-red.gif" />
+    <Content Include="css\images\warning.png" />
+    <Content Include="css\images\wp_check_indeterminate_white.png" />
+    <Content Include="css\images\wp_check_white.png" />
+    <Content Include="css\jqx.base.css" />
+    <Content Include="css\jqx.darkblue.css" />
+    <Content Include="css\stylesheet.css" />
+    <Content Include="css\treeview.css" />
+    <Content Include="index.html" />
+    <Content Include="js\globalization\globalize.culture.cs-CZ.js" />
+    <Content Include="js\globalization\globalize.culture.de-DE.js" />
+    <Content Include="js\globalization\globalize.culture.en-CA.js" />
+    <Content Include="js\globalization\globalize.culture.en-US.js" />
+    <Content Include="js\globalization\globalize.culture.fr-FR.js" />
+    <Content Include="js\globalization\globalize.culture.he-IL.js" />
+    <Content Include="js\globalization\globalize.culture.hr-HR.js" />
+    <Content Include="js\globalization\globalize.culture.hu-HU.js" />
+    <Content Include="js\globalization\globalize.culture.it-IT.js" />
+    <Content Include="js\globalization\globalize.culture.ja-JP.js" />
+    <Content Include="js\globalization\globalize.culture.lt.js" />
+    <Content Include="js\globalization\globalize.culture.ru-RU.js" />
+    <Content Include="js\globalization\globalize.culture.sa-IN.js" />
+    <Content Include="js\globalization\globalize.js" />
+    <Content Include="js\globalization\ReadMe.txt" />
+    <Content Include="js\jqx-all.js" />
+    <Content Include="js\jquery.layout.js" />
+    <Content Include="js\monitor.js" />
+    <Content Include="js\jquery.treeview.js" />
+    <Content Include="packages.config" />
+    <None Include="Properties\PublishProfiles\dev.hawkbane.biz.pubxml" />
+    <EntityDeploy Include="SignalR.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>SignalR.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="js\jquery-2.2.4.intellisense.js" />
+    <Content Include="js\jquery-2.2.4.js" />
+    <Content Include="js\jquery-2.2.4.min.js" />
+    <Content Include="SignalR.edmx.diagram">
+      <DependentUpon>SignalR.edmx</DependentUpon>
+    </Content>
+    <None Include="Properties\PublishProfiles\prod.hawkbane.biz.pubxml" />
+    <None Include="Properties\PublishProfiles\stage.hawkbane.biz.pubxml" />
+    <Content Include="js\jquery-2.2.4.min.map" />
+    <None Include="Web.Dev.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Prod.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Stage.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="js\jquery.signalR-2.2.1.js" />
+    <Content Include="js\jquery.signalR-2.2.1.min.js" />
+    <Content Include="SignalR.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>SignalR.edmx</DependentUpon>
+      <LastGenOutput>SignalR.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="SignalR.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>SignalR.edmx</DependentUpon>
+      <LastGenOutput>SignalR.cs</LastGenOutput>
+    </Content>
+    <Content Include="Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="annoucement.cs">
+      <DependentUpon>SignalR.tt</DependentUpon>
+    </Compile>
+    <Compile Include="chatLog.cs">
+      <DependentUpon>SignalR.tt</DependentUpon>
+    </Compile>
+    <Compile Include="chatSession.cs">
+      <DependentUpon>SignalR.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database.cs" />
+    <Compile Include="locationLookup.cs">
+      <DependentUpon>SignalR.tt</DependentUpon>
+    </Compile>
+    <Compile Include="lookupMonitorUser.cs">
+      <DependentUpon>SignalR.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sashaSession.cs">
+      <DependentUpon>SignalR.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SignalR.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SignalR.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SignalR.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SignalR.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SignalR.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SignalR.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="user.cs">
+      <DependentUpon>SignalR.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserExtensions.cs" />
+    <Compile Include="MyHub.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Startup.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Dev|AnyCPU'">
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Stage|AnyCPU' ">
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>61691</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:61691/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.2\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.2\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
